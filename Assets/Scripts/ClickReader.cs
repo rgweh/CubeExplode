@@ -10,9 +10,11 @@ public class ClickReader : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 Cube cube = hit.collider.GetComponent<Cube>();
+                
                 if (cube != null)
                 {
                     OnCubeClicked?.Invoke(cube);

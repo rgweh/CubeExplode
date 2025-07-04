@@ -12,24 +12,19 @@ public class CubeHandler : MonoBehaviour
     private void Start()
     {
         Cube firstCube = Instantiate(_baseCube, _spawnpoint, Quaternion.identity);
-        firstCube.Init();
 
         _clickReader.OnCubeClicked += TryDuplicate;
     }
 
     private void TryDuplicate(Cube cube)
     {
-        List<Cube> createdCubes = _cubeDuplicator.TryDuplicate(cube);
-
-        if(createdCubes != null)
-            Explode(cube, createdCubes);
+        if (cube.WillDuplicate())
+        {
+            List<Cube> createdCubes = _cubeDuplicator.Duplicate(cube);
+            _exploder.Explode(createdCubes, cube);
+        }
 
         Destroy(cube.gameObject);
-    }
-
-    private void Explode(Cube cube, List<Cube> createdCubes)
-    {
-        _exploder.Explode(createdCubes);
     }
 
 }
