@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class ClickReader : MonoBehaviour
 {
+    private int _leftMouseButton = 0;
+
     public event Action<Cube> OnCubeClicked;
 
     private void Update()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(_leftMouseButton))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             

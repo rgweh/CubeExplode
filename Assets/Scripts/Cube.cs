@@ -7,10 +7,12 @@ public class Cube : MonoBehaviour
 {
     [SerializeField] private int _generation;
 
-    private float _actionChance;
+    private int _actionChance;
     private float _scaleReduce = 2;
     private int _actionChanceRangeMin = 0;
     private int _actionChanceRangeMax = 100;
+
+    public int ActionChance => _actionChance;
 
     private void Awake()
     {
@@ -21,20 +23,7 @@ public class Cube : MonoBehaviour
         Vector3 scale = transform.localScale;
         transform.localScale = scale / _scaleReduce;
 
-        var renderer = new Renderer();
-        TryGetComponent<Renderer>(out renderer);
-
-        if (renderer != null)
+        if(TryGetComponent(out Renderer renderer))
             renderer.material.color = Random.ColorHSV();
-    }
-
-    public bool WillDuplicate()
-    {
-        if(Random.Range(_actionChanceRangeMin, _actionChanceRangeMax + 1) <= _actionChance)
-        {
-            return true;
-        }
-
-        return false;
     }
 }

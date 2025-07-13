@@ -5,8 +5,12 @@ public class CubeDuplicator : MonoBehaviour
 {
     [SerializeField] private int _minAmount = 2;
     [SerializeField] private int _maxAmount = 6;
+    [SerializeField] private Exploder _exploder;
 
-    
+    private void Awake()
+    {
+        _exploder.OnExploded += DestroyObject;
+    }
 
     public List<Cube> Duplicate(Cube cube)
     {
@@ -20,5 +24,10 @@ public class CubeDuplicator : MonoBehaviour
         }
 
         return createdCubes;
+    }
+
+    private void DestroyObject(GameObject obj)
+    {
+        Destroy(obj);
     }
 }

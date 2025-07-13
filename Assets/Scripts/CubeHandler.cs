@@ -9,16 +9,18 @@ public class CubeHandler : MonoBehaviour
     [SerializeField] private Cube _baseCube;
     [SerializeField] private Vector3 _spawnpoint;
 
+    private int _minChance = 0;
+    private int _maxChance = 100;
+
     private void Start()
     {
         Cube firstCube = Instantiate(_baseCube, _spawnpoint, Quaternion.identity);
-
         _clickReader.OnCubeClicked += TryDuplicate;
     }
 
     private void TryDuplicate(Cube cube)
     {
-        if (cube.WillDuplicate())
+        if (Random.Range(_minChance, _maxChance) < cube.ActionChance)
         {
             List<Cube> createdCubes = _cubeDuplicator.Duplicate(cube);
             _exploder.Explode(createdCubes, cube);
@@ -26,5 +28,4 @@ public class CubeHandler : MonoBehaviour
 
         Destroy(cube.gameObject);
     }
-
 }
