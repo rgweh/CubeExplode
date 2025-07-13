@@ -869,6 +869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minAmount: 2
   _maxAmount: 6
+  _exploder: {fileID: 1726054387}
 --- !u!4 &1726054385
 Transform:
   m_ObjectHideFlags: 0

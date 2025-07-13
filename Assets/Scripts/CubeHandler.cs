@@ -25,7 +25,5 @@ public class CubeHandler : MonoBehaviour
             List<Cube> createdCubes = _cubeDuplicator.Duplicate(cube);
             _exploder.Explode(createdCubes, cube);
         }
-
-        Destroy(cube.gameObject);
     }
 }
