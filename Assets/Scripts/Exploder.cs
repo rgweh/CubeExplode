@@ -7,7 +7,7 @@ public class Exploder : MonoBehaviour
     [SerializeField] private float _explodeRadius;
     [SerializeField] private float _explodeForse;
 
-    public event Action<GameObject> OnExploded;
+    public event Action<Cube> Exploded;
 
     public void Explode(List<Cube> createdCubes, Cube cube)
     {
@@ -16,7 +16,7 @@ public class Exploder : MonoBehaviour
             if(createdCube.TryGetComponent(out Rigidbody cubeRigidBody))
             {
                 cubeRigidBody.AddExplosionForce(_explodeForse, cube.transform.position, _explodeRadius);
-                OnExploded?.Invoke(cube.gameObject);
+                Exploded?.Invoke(cube);
             }
         }
     }
