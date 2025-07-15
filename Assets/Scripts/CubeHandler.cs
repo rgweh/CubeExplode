@@ -6,7 +6,6 @@ public class CubeHandler : MonoBehaviour
     [SerializeField] private CubeSpawner _cubeSpawner;
     [SerializeField] private Exploder _exploder;
     [SerializeField] private ClickReader _clickReader;
-    [SerializeField] private CubeModifier _cubeModifier;
     [SerializeField] private Cube _baseCube;
     [SerializeField] private Vector3 _spawnpoint;
 
@@ -17,17 +16,26 @@ public class CubeHandler : MonoBehaviour
     {
         Cube firstCube = Instantiate(_baseCube, _spawnpoint, Quaternion.identity);
         _clickReader.CubeClicked += TryDuplicate;
+        _clickReader.ReaderDestroyed += UnsubscribeFromReader;
     }
 
     private void TryDuplicate(Cube cube)
     {
         if (Random.Range(_minChance, _maxChance) < cube.ActionChance)
         {
-            List<Cube> createdCubes = _cubeSpawner.Duplicate(cube);
-            _cubeModifier.ModifyCubes(createdCubes);
+            List<Cube> createdCubes = _cubeSpawner.SpawnCubes(cube);
             _exploder.Explode(createdCubes, cube);
+            _cubeSpawner.DestroyObject(cube);
         }
         else
+        {
             _cubeSpawner.DestroyObject(cube);
+        }
+    }
+
+    private void UnsubscribeFromReader()
+    {
+        _clickReader.CubeClicked -= TryDuplicate;
+        _clickReader.ReaderDestroyed -= UnsubscribeFromReader;
     }
 }

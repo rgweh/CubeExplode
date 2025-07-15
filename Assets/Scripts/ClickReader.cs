@@ -6,6 +6,7 @@ public class ClickReader : MonoBehaviour
     private int _leftMouseButton = 0;
 
     public event Action<Cube> CubeClicked;
+    public event Action ReaderDestroyed;
 
     private void Update()
     {
@@ -19,5 +20,10 @@ public class ClickReader : MonoBehaviour
                     CubeClicked?.Invoke(cube);
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        ReaderDestroyed?.Invoke();
     }
 }

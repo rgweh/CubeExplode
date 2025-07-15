@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(Renderer))]
+[RequireComponent (typeof(Rigidbody))]
 public class Cube : MonoBehaviour 
 {
     [SerializeField] private int _generation;

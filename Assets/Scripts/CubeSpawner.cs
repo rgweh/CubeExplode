@@ -5,14 +5,9 @@ public class CubeSpawner : MonoBehaviour
 {
     [SerializeField] private int _minAmount = 2;
     [SerializeField] private int _maxAmount = 6;
-    [SerializeField] private Exploder _exploder;
+    [SerializeField] private CubeModifier _cubeModifier;
 
-    private void Awake()
-    {
-        _exploder.Exploded += DestroyObject;
-    }
-
-    public List<Cube> Duplicate(Cube cube)
+    public List<Cube> SpawnCubes(Cube cube)
     {
         int amount = Random.Range(_minAmount, _maxAmount + 1);
         List<Cube> createdCubes = new List<Cube>();
@@ -22,6 +17,8 @@ public class CubeSpawner : MonoBehaviour
             Cube newborn = Instantiate(cube);
             createdCubes.Add(newborn);
         }
+
+        _cubeModifier.ModifyCubes(createdCubes);
 
         return createdCubes;
     }

@@ -8,8 +8,7 @@ public class CubeModifier : MonoBehaviour
     {
         foreach (Cube cube in cubes)
         {
-            if(cube.gameObject.TryGetComponent(out Renderer renderer))
-                renderer.material.color = Random.ColorHSV();
+            cube.GetComponent<Renderer>().material.color = Random.ColorHSV();
 
             Vector3 scale = cube.transform.localScale;
             cube.transform.localScale = scale / cube.ScaleReduce;
