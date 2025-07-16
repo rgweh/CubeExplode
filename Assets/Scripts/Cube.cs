@@ -8,6 +8,7 @@ public class Cube : MonoBehaviour
 {
     [SerializeField] private int _generation;
 
+    private Rigidbody _rigidbody;
     private float _actionChance;
     private float _scaleReduce = 2;
     private float _baseChance = 100;
@@ -19,5 +20,6 @@ public class Cube : MonoBehaviour
     {
         _generation++;
         _actionChance = _baseChance / _generation;
+        _rigidbody = this.GetComponent<Rigidbody>();
     }
 }

@@ -12,11 +12,15 @@ public class CubeHandler : MonoBehaviour
     private int _minChance = 0;
     private int _maxChance = 100;
 
-    private void Start()
+    private void OnEnable()
     {
         Cube firstCube = Instantiate(_baseCube, _spawnpoint, Quaternion.identity);
         _clickReader.CubeClicked += TryDuplicate;
-        _clickReader.ReaderDestroyed += UnsubscribeFromReader;
+    }
+
+    private void OnDisable()
+    {
+        _clickReader.CubeClicked -= TryDuplicate;
     }
 
     private void TryDuplicate(Cube cube)
@@ -25,17 +29,8 @@ public class CubeHandler : MonoBehaviour
         {
             List<Cube> createdCubes = _cubeSpawner.SpawnCubes(cube);
             _exploder.Explode(createdCubes, cube);
-            _cubeSpawner.DestroyObject(cube);
         }
-        else
-        {
-            _cubeSpawner.DestroyObject(cube);
-        }
-    }
 
-    private void UnsubscribeFromReader()
-    {
-        _clickReader.CubeClicked -= TryDuplicate;
-        _clickReader.ReaderDestroyed -= UnsubscribeFromReader;
+        _cubeSpawner.DestroyObject(cube);
     }
 }
