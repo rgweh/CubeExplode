@@ -20,6 +20,6 @@ public class Cube : MonoBehaviour
     {
         _generation++;
         _actionChance = _baseChance / _generation;
-        _rigidbody = this.GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
 }
