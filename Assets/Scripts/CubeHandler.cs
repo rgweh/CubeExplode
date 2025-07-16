@@ -6,15 +6,15 @@ public class CubeHandler : MonoBehaviour
     [SerializeField] private CubeSpawner _cubeSpawner;
     [SerializeField] private Exploder _exploder;
     [SerializeField] private ClickReader _clickReader;
-    [SerializeField] private Cube _baseCube;
     [SerializeField] private Vector3 _spawnpoint;
+    [SerializeField] private Cube _baseCube;
 
     private int _minChance = 0;
     private int _maxChance = 100;
 
     private void OnEnable()
     {
-        Cube firstCube = Instantiate(_baseCube, _spawnpoint, Quaternion.identity);
+        _cubeSpawner.SpawnCube(_baseCube, _spawnpoint);
         _clickReader.CubeClicked += TryDuplicate;
     }
 

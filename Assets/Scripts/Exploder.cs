@@ -11,7 +11,8 @@ public class Exploder : MonoBehaviour
     {
         foreach (Cube createdCube in createdCubes)
         {
-            cube.GetComponent<Rigidbody>().AddExplosionForce(_explodeForse, cube.transform.position, _explodeRadius);
+            if(cube.TryGetComponent(out Rigidbody cubeRigidbody))
+                cubeRigidbody.AddExplosionForce(_explodeForse, cube.transform.position, _explodeRadius);
         }
     }
 }
